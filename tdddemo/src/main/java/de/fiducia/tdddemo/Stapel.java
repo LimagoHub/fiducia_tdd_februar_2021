@@ -1,29 +1,32 @@
 package de.fiducia.tdddemo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Stapel {
 	
-	private Object [] data;
-	private int index;
+	private List<Object> data;
+	
 	
 	public Stapel() {
-		data = new Object[10];
-		index = 0;
+		data = new ArrayList<Object>();
+		
 	}
 	
 	
 	public boolean isEmpty() {
-		return index <= 0;
+		return data.isEmpty();
 	}
 
 	public boolean isFull() {
-		return index >= data.length;
+		return false;
 	}
 	
 	public void push(Object value) throws StapelException{
 		
 		if(isFull())
 			throw new StapelException("Overflow");
-		data[index ++] = value;
+		data.add(value);
 		
 	}
 
@@ -31,7 +34,7 @@ public class Stapel {
 		
 		if(isEmpty())
 			throw new StapelException("Underflow");
-		return data[--index];
+		return data.remove(data.size() - 1);
 		
 	}
 

@@ -77,7 +77,7 @@ public class StapelTest {
 		
 		
 	}
-	
+	 
 	@Test
 	public void push_Overflow_throwsStapelException() throws Exception{
 		fillUpToLimit();
