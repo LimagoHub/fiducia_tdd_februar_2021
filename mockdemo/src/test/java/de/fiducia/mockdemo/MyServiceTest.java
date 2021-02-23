@@ -1,5 +1,6 @@
 package de.fiducia.mockdemo;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -20,7 +21,7 @@ public class MyServiceTest {
 	
 	@Test
 	void testThatDependencyIsInjected() {
-		objectUnderTest.myServiceFunction(10);
+		assertDoesNotThrow(()->objectUnderTest.myServiceFunction(10));
 	}
 	
 	@Test
