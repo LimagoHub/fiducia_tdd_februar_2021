@@ -1,6 +1,7 @@
 package de.fiducia.personen.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import de.fiducia.personen.PersonRepositoriy;
 import de.fiducia.personen.models.Person;
@@ -30,9 +31,21 @@ public class PersonServiceImpl {
 		
 	}
 
+	public void speichern(String vorname, String nachname) throws PersonServiceException{
+		
+		Person person = Person.builder().vorname(vorname).nachname(nachname).build();
+		speichern(person);
+	}
+
 	private void speichernImpl(Person person) throws PersonServiceException {
 		checkPerson(person);
+		createId(person);
 		repository.save(person);
+	}
+
+	private void createId(Person person) {
+		person.setId(UUID.randomUUID().toString());
+		
 	}
 
 	private void checkPerson(Person person) throws PersonServiceException {
