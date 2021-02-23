@@ -20,6 +20,7 @@
 		<jupiter-version>5.4.2</jupiter-version>
 	</properties>
 
+
 	<dependencies>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -36,7 +37,11 @@
 		<!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons -->
 		<!-- dependency> <groupId>org.junit.platform</groupId> <artifactId>junit-platform-commons</artifactId> 
 			<version>1.7.1</version> </dependency -->
-
+<dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+            <version>1.5.2</version>
+ </dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
