@@ -29,4 +29,13 @@ public class MyService {
 		}
 	}
 
+	public int myServiceDoSomethingWithIntMethodWithParam(int a) throws MyServiceException{
+		try {
+			
+			return dependencyInterface.intFunctionWithParam("Hallo") + 5;
+		} catch (Exception e) {
+			throw new MyServiceException("upps");
+		}
+	}
+
 }

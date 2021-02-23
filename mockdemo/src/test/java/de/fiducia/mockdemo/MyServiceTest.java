@@ -62,6 +62,27 @@ public class MyServiceTest {
 		MyServiceException ex = assertThrows(MyServiceException.class, ()->objectUnderTest.myServiceDiSomethingWithIntMethod(5));
 		assertEquals("upps", ex.getMessage());
 	}
+	
+	@Test
+	void testMethod3() {
+		when(dependencyInterfaceMock.intFunctionWithParam(anyString())).thenThrow(new ArithmeticException("Hallo"));
+		MyServiceException ex = assertThrows(MyServiceException.class, ()->objectUnderTest.myServiceDoSomethingWithIntMethodWithParam(5));
+		assertEquals("upps", ex.getMessage());
+	}
+
+	@Test
+	void testMethod4()throws Exception {
+		//when(dependencyInterfaceMock.intFunctionWithParam(anyString())).thenThrow(new ArithmeticException("Hallo"));
+		objectUnderTest.myServiceDoSomethingWithIntMethodWithParam(5);
+		verify(dependencyInterfaceMock).intFunctionWithParam("Hallo");
+	}
+
+	@Test
+	void testMethod5()throws Exception {
+		when(dependencyInterfaceMock.intFunctionWithParam(anyString())).thenReturn(10);
+		assertEquals(15, objectUnderTest.myServiceDoSomethingWithIntMethodWithParam(5));
+		verify(dependencyInterfaceMock).intFunctionWithParam("Hallo");
+	}
 
 
 
