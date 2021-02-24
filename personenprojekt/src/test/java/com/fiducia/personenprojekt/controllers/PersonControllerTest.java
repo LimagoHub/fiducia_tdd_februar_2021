@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -45,6 +47,40 @@ public class PersonControllerTest {
 		assertEquals("Mustermann", person.getNachname());
 		
 	}
+	@Test
+	//@Sql({"create.sql","insert.sql"})
+	void findPersonById_PersonGefunden_StatusIs200OK() throws Exception{
+		
+		Person validPerson = Person.builder().id("012345678901234567890123456789012345").vorname("Max").nachname("Mustermann").build();
+		
+		when(personServiceMock.findePersonMitId(anyString())).thenReturn(Optional.of(validPerson));
+		
+		ResponseEntity<Person> entity = restTemplate.getForEntity("/personen/person/cef9e0e9-c898-442a-ba30-7ef62b7569b9", Person.class);
+		Person p = entity.getBody();
+		
+		assertEquals("012345678901234567890123456789012345", p.getId());
+		assertEquals("Max", p.getVorname());
+		assertEquals("Mustermann", p.getNachname());
+		
+		assertEquals(HttpStatus.OK, entity.getStatusCode());
+		
+	}
+	
+	
+	@Test
+	//@Sql({"create.sql","insert.sql"})
+	void findPersonById_PersonNichtGefunden_StatusIs404NotFound() throws Exception{
+		
+		
+		
+		when(personServiceMock.findePersonMitId(anyString())).thenReturn(Optional.empty());
+		
+		ResponseEntity<Person> entity = restTemplate.getForEntity("/personen/person/cef9e0e9-c898-442a-ba30-7ef62b7569b9", Person.class);
+			
+		assertEquals(HttpStatus.NOT_FOUND, entity.getStatusCode());
+		
+	}
+
 	
 //	@Test
 //	void findPersonById_PersonExists_getBrittni_version2() throws Exception{
